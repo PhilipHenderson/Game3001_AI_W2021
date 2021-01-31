@@ -5,8 +5,10 @@
 #include "Scene.h"
 #include "Plane.h"
 #include "Player.h"
+#include "SpaceShip.h"
 #include "Button.h"
 #include "Label.h"
+#include "Target.h"
 
 class PlayScene : public Scene
 {
@@ -27,9 +29,8 @@ private:
 	
 	glm::vec2 m_mousePosition;
 
-	Plane* m_pPlaneSprite;
-	Player* m_pPlayer;
-	bool m_playerFacingRight;
+	Target* m_pTarget;
+	SpaceShip* m_pSpaceShip;
 
 	// UI Items
 	Button* m_pBackButton;

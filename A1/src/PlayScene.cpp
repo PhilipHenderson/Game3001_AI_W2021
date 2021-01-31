@@ -40,70 +40,7 @@ void PlayScene::handleEvents()
 {
 	EventManager::Instance().update();
 
-	// handle player movement with GameController
-	if (SDL_NumJoysticks() > 0)
-	{
-		if (EventManager::Instance().getGameController(0) != nullptr)
-		{
-			const auto deadZone = 10000;
-			if (EventManager::Instance().getGameController(0)->LEFT_STICK_X > deadZone)
-			{
-				m_pPlayer->setAnimationState(PLAYER_RUN_RIGHT);
-				m_playerFacingRight = true;
-			}
-			else if (EventManager::Instance().getGameController(0)->LEFT_STICK_X < -deadZone)
-			{
-				m_pPlayer->setAnimationState(PLAYER_RUN_LEFT);
-				m_playerFacingRight = false;
-			}
-			else if (EventManager::Instance().getGameController(0)->LEFT_STICK_Y > deadZone)
-			{
-				m_pPlayer->setAnimationState(PLAYER_RUN_UP);
-			}
-			else if (EventManager::Instance().getGameController(0)->LEFT_STICK_Y < -deadZone)
-			{
-				m_pPlayer->setAnimationState(PLAYER_RUN_DOWN);
-			}
-			else
-			{
-				if (m_playerFacingRight)
-				{
-					m_pPlayer->setAnimationState(PLAYER_IDLE_RIGHT);
-				}
-				else
-				{
-					m_pPlayer->setAnimationState(PLAYER_IDLE_LEFT);
-				}
-			}
-		}
-	}
-
-
-	// handle player movement if no Game Controllers found
-	if (SDL_NumJoysticks() < 1)
-	{
-		if (EventManager::Instance().isKeyDown(SDL_SCANCODE_A))
-		{
-			m_pPlayer->setAnimationState(PLAYER_RUN_LEFT);
-			m_playerFacingRight = false;
-		}
-		else if (EventManager::Instance().isKeyDown(SDL_SCANCODE_D))
-		{
-			m_pPlayer->setAnimationState(PLAYER_RUN_RIGHT);
-			m_playerFacingRight = true;
-		}
-		else
-		{
-			if (m_playerFacingRight)
-			{
-				m_pPlayer->setAnimationState(PLAYER_IDLE_RIGHT);
-			}
-			else
-			{
-				m_pPlayer->setAnimationState(PLAYER_IDLE_LEFT);
-			}
-		}
-	}
+	
 	
 
 	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_ESCAPE))
@@ -128,14 +65,17 @@ void PlayScene::start()
 	// Set GUI Title
 	m_guiTitle = "Play Scene";
 	
-	// Plane Sprite
-	m_pPlaneSprite = new Plane();
-	//addChild(m_pPlaneSprite);
 
-	// Player Sprite
-	m_pPlayer = new Player();
-	addChild(m_pPlayer);
-	m_playerFacingRight = true;
+	// Target Sprite
+	m_pTarget = new Target();
+	m_pTarget->getTransform()->position = glm::vec2(400.0f, 300.0f);
+	addChild(m_pTarget);
+
+	// SpaceShip Sprite
+	m_pSpaceShip = new SpaceShip();
+	m_pSpaceShip->getTransform()->position = glm::vec2(100.0f, 100.0f);
+	m_pSpaceShip->setEnabled(false);
+	addChild(m_pSpaceShip);
 
 	// Back Button
 	m_pBackButton = new Button("../Assets/textures/backButton.png", "backButton", BACK_BUTTON);
@@ -181,12 +121,12 @@ void PlayScene::start()
 	/* Instructions Label */
 	m_pInstructionsLabel = new Label("Press 1 for Seeking, 2 for Arrival,", "Roboto-Regular");
 	m_pInstructionsLabel->getTransform()->position = glm::vec2(Config::SCREEN_WIDTH * 0.5f, 500.0f);
-	//addChild(m_pInstructionsLabel);
+	addChild(m_pInstructionsLabel);
 
 
 	m_pInstructionsLabel2 = new Label(" 3 for Fleeing, 4 for Obstical Avoidance", "Roboto-Regular");
 	m_pInstructionsLabel2->getTransform()->position = glm::vec2(Config::SCREEN_WIDTH * 0.5f, 525.0f);
-	//addChild(m_pInstructionsLabel2);
+	addChild(m_pInstructionsLabel2);
 }
 
 void PlayScene::GUI_Function() const
@@ -199,30 +139,23 @@ void PlayScene::GUI_Function() const
 
 	ImGui::Begin("Your Window Title Goes Here", NULL, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_MenuBar);
 
-	if(ImGui::Button("My Button"))
+	if(ImGui::Button("Initiate"))
 	{
-		std::cout << "My Button Pressed" << std::endl;
+		m_pSpaceShip->setEnabled(true);
 	}
 
+	ImGui::SameLine();
 
-
+	if (ImGui::Button("Stop"))
+	{
+		m_pSpaceShip->setEnabled(false);
+		m_pSpaceShip->getTransform()->position = glm::vec2(100.0f, 100.0f);
+	}
 	ImGui::Separator();
-
-	static float float3[3] = { 0.0f, 1.0f, 1.5f };
-	if(ImGui::SliderFloat3("My Slider", float3, 0.0f, 2.0f))
+	static float float2[2] = { m_pTarget->getTransform()->position.x, m_pTarget->getTransform()->position.y };
+	if (ImGui::SliderFloat2("Target", float2, 0.0f, 800.0f))
 	{
-		std::cout << float3[0] << std::endl;
-		std::cout << float3[1] << std::endl;
-		std::cout << float3[2] << std::endl;
-		std::cout << "---------------------------\n";
-	}
-	
-	static float float2[2] = { 0.0f, 1.0f };
-	if (ImGui::SliderFloat2("my other Slider", float2, 0.1f, 1.5f))
-	{
-		std::cout << float2[0] << std::endl;
-		std::cout << float2[1] << std::endl;
-		std::cout << "---------------------------\n";
+		m_pTarget->getTransform()->position = glm::vec2(float2[0], float2[1]);
 	}
 
 
