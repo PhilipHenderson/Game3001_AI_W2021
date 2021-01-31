@@ -40,9 +40,26 @@ void PlayScene::handleEvents()
 {
 	EventManager::Instance().update();
 
-	
-	
-
+	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_A))
+	{
+		//target moves to the left
+		m_pTarget->getTransform()->position.x--;
+	}
+	else if (EventManager::Instance().isKeyDown(SDL_SCANCODE_D))
+	{
+		//target moves to the right
+		m_pTarget->getTransform()->position.x++;
+	}
+	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_W))
+	{
+		//target moves to the up
+		m_pTarget->getTransform()->position.y--;
+	}
+	else if (EventManager::Instance().isKeyDown(SDL_SCANCODE_S))
+	{
+		//target moves to the left
+		m_pTarget->getTransform()->position.y++;
+	}
 	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_ESCAPE))
 	{
 		TheGame::Instance()->quit();
@@ -75,6 +92,7 @@ void PlayScene::start()
 	m_pSpaceShip = new SpaceShip();
 	m_pSpaceShip->getTransform()->position = glm::vec2(100.0f, 100.0f);
 	m_pSpaceShip->setEnabled(false);
+	m_pSpaceShip->setDestination(m_pTarget->getTransform()->position);
 	addChild(m_pSpaceShip);
 
 	// Back Button
@@ -156,6 +174,7 @@ void PlayScene::GUI_Function() const
 	if (ImGui::SliderFloat2("Target", float2, 0.0f, 800.0f))
 	{
 		m_pTarget->getTransform()->position = glm::vec2(float2[0], float2[1]);
+		m_pSpaceShip->setDestination(m_pTarget->getTransform()->position);
 	}
 
 

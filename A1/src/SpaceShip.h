@@ -18,17 +18,19 @@ public:
 	void update() override;
 	void clean() override;
 
-	void tRight();
-	void tLeft();
-	void mForward();
-	void mBack();
-
-	void move();
-
+	//setters and getters
+	void setDestination(glm::vec2 destination);
+	void setMaxSpeed(float speed);
 
 private:
-	float m_currentHeading;
-	float m_turnRate;
+
+
+	
+	glm::vec2 m_targetDirection; //Normalized Values or Orientation or looking direction
+	glm::vec2 m_destination;//where im going
+	float m_maxSpeed;
+	//Private Function
+	void m_Move();
 };
 
 
