@@ -6,6 +6,7 @@
 #include "imgui.h"
 #include "imgui_sdl.h"
 #include "Renderer.h"
+#include "Util.h"
 
 PlayScene::PlayScene()
 {
@@ -43,22 +44,26 @@ void PlayScene::handleEvents()
 	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_A))
 	{
 		//target moves to the left
-		m_pTarget->getTransform()->position.x--;
+		m_pTarget->getTransform()->position.x = m_pTarget->getTransform()->position.x - 3;;
+		m_pSpaceShip->setDestination(m_pTarget->getTransform()->position);
 	}
 	else if (EventManager::Instance().isKeyDown(SDL_SCANCODE_D))
 	{
 		//target moves to the right
-		m_pTarget->getTransform()->position.x++;
+		m_pTarget->getTransform()->position.x = m_pTarget->getTransform()->position.x + 3;;
+		m_pSpaceShip->setDestination(m_pTarget->getTransform()->position);
 	}
 	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_W))
 	{
 		//target moves to the up
-		m_pTarget->getTransform()->position.y--;
+		m_pTarget->getTransform()->position.y = m_pTarget->getTransform()->position.y - 3;
+		m_pSpaceShip->setDestination(m_pTarget->getTransform()->position);
 	}
 	else if (EventManager::Instance().isKeyDown(SDL_SCANCODE_S))
 	{
-		//target moves to the left
-		m_pTarget->getTransform()->position.y++;
+		//target moves to the down
+		m_pTarget->getTransform()->position.y = m_pTarget->getTransform()->position.y + 3;
+		m_pSpaceShip->setDestination(m_pTarget->getTransform()->position);
 	}
 	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_ESCAPE))
 	{
@@ -157,6 +162,19 @@ void PlayScene::GUI_Function() const
 
 	ImGui::Begin("Your Window Title Goes Here", NULL, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_MenuBar);
 
+	static float shipSpeed = 2.0f;
+	if (ImGui::SliderFloat("Ship Speed", &shipSpeed, 0.0f, 100.0f))
+	{
+		m_pSpaceShip->setMaxSpeed(shipSpeed);
+	}
+
+	static float angleInRadians = m_pSpaceShip->getRotationAngle();
+	if (ImGui::SliderAngle("Orientation Angle", &angleInRadians))
+	{
+		m_pSpaceShip->setRotationAngle(angleInRadians * Util::Rad2Deg);
+	}
+
+
 	if(ImGui::Button("Initiate"))
 	{
 		m_pSpaceShip->setEnabled(true);
@@ -170,10 +188,10 @@ void PlayScene::GUI_Function() const
 		m_pSpaceShip->getTransform()->position = glm::vec2(100.0f, 100.0f);
 	}
 	ImGui::Separator();
-	static float float2[2] = { m_pTarget->getTransform()->position.x, m_pTarget->getTransform()->position.y };
-	if (ImGui::SliderFloat2("Target", float2, 0.0f, 800.0f))
+	static float TargetPosition[2] = { m_pTarget->getTransform()->position.x, m_pTarget->getTransform()->position.y };
+	if (ImGui::SliderFloat2("Target", TargetPosition, 0.0f, 800.0f))
 	{
-		m_pTarget->getTransform()->position = glm::vec2(float2[0], float2[1]);
+		m_pTarget->getTransform()->position = glm::vec2(TargetPosition[0], TargetPosition[1]);
 		m_pSpaceShip->setDestination(m_pTarget->getTransform()->position);
 	}
 

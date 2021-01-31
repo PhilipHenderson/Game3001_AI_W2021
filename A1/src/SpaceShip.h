@@ -21,13 +21,17 @@ public:
 	//setters and getters
 	void setDestination(glm::vec2 destination);
 	void setMaxSpeed(float speed);
-
+	void setOrientation(glm::vec2 orientation);
+	void setRotationAngle(float angle);
+	float getRotationAngle();
 private:
 
 
 	
 	glm::vec2 m_targetDirection; //Normalized Values or Orientation or looking direction
 	glm::vec2 m_destination;//where im going
+	glm::vec2 m_orientation;
+	float m_rotationAngle;
 	float m_maxSpeed;
 	//Private Function
 	void m_Move();
