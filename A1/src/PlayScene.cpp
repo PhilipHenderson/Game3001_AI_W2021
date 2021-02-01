@@ -170,10 +170,10 @@ void PlayScene::GUI_Function() const
 	// See examples by uncommenting the following - also look at imgui_demo.cpp in the IMGUI filter
 	//ImGui::ShowDemoWindow();
 
-	ImGui::Begin("Your Window Title Goes Here", NULL, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_MenuBar);
+	ImGui::Begin("Game3001 - Lab 2", NULL, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_MenuBar);
 
-	static float shipSpeed = 2.0f;
-	if (ImGui::SliderFloat("Ship Speed", &shipSpeed, 0.0f, 5.0f))
+	static float shipSpeed = 10.0f;
+	if (ImGui::SliderFloat("Ship Speed", &shipSpeed, 0.0f, 300.0f))
 	{
 		m_pSpaceShip->setMaxSpeed(shipSpeed);
 	}
@@ -182,6 +182,7 @@ void PlayScene::GUI_Function() const
 	static float angleInRadians = m_pSpaceShip->getRotationAngle();
 	if (ImGui::SliderAngle("Orientation Angle", &angleInRadians))
 	{
+		
 		m_pSpaceShip->setRotationAngle(angleInRadians * Util::Rad2Deg);
 	}
 
@@ -197,8 +198,13 @@ void PlayScene::GUI_Function() const
 	{
 		m_pSpaceShip->setEnabled(false);
 		m_pSpaceShip->getTransform()->position = glm::vec2(100.0f, 100.0f);
+		m_pSpaceShip->getRigidBody()->velocity = glm::vec2(0.0f, 0.0f);
+		m_pSpaceShip->setRotationAngle(0.0f); // set angle to 0 degrees
+		angleInRadians = 0.0f;
 	}
+
 	ImGui::Separator();
+
 	static float TargetPosition[2] = { m_pTarget->getTransform()->position.x, m_pTarget->getTransform()->position.y };
 	if (ImGui::SliderFloat2("Target", TargetPosition, 0.0f, 800.0f))
 	{
