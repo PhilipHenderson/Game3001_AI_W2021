@@ -41,6 +41,16 @@ void PlayScene::handleEvents()
 {
 	EventManager::Instance().update();
 
+	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_LEFT))
+	{
+		//target moves to the left
+		m_pSpaceShip->setRotationAngle(m_pSpaceShip->getRotationAngle() - 5);
+	}
+	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_RIGHT))
+	{
+		//target moves to the left
+		m_pSpaceShip->setRotationAngle(m_pSpaceShip->getRotationAngle() + 5);
+	}
 	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_A))
 	{
 		//target moves to the left
