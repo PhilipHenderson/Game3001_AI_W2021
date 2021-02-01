@@ -126,7 +126,7 @@ void SpaceShip::m_Move()
 
 	auto target_rotation = Util::signedAngle(getOrientation(), m_targetDirection);
 
-	auto turn_sensitivity = 10.0f;
+	auto turn_sensitivity = 5.0f;
 
 	if (abs(target_rotation) > turn_sensitivity)
 	{
