@@ -9,6 +9,7 @@
 #include "Button.h"
 #include "Label.h"
 #include "Target.h"
+#include "Obsticle.h"
 
 class PlayScene : public Scene
 {
@@ -37,6 +38,7 @@ private:
 	Button* m_pNextButton;
 	Label* m_pInstructionsLabel;
 	Label* m_pInstructionsLabel2;
+	Obsticle* m_pObsticle;
 
 };
 

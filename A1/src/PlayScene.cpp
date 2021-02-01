@@ -100,12 +100,18 @@ void PlayScene::start()
 
 	// Target Sprite
 	m_pTarget = new Target();
-	m_pTarget->getTransform()->position = glm::vec2(400.0f, 300.0f);
+	m_pTarget->getTransform()->position = glm::vec2(650.0f, 300.0f);
 	addChild(m_pTarget);
+
+	//Obsticle Sprite
+	m_pObsticle = new Obsticle();
+	m_pObsticle->getTransform()->position = glm::vec2(300.0f, 250.0f);
+	addChild(m_pObsticle);
+
 
 	// SpaceShip Sprite
 	m_pSpaceShip = new SpaceShip();
-	m_pSpaceShip->getTransform()->position = glm::vec2(100.0f, 100.0f);
+	m_pSpaceShip->getTransform()->position = glm::vec2(100.0f,250.0f);
 	m_pSpaceShip->setEnabled(false);
 	m_pSpaceShip->setDestination(m_pTarget->getTransform()->position);
 	addChild(m_pSpaceShip);
