@@ -56,19 +56,46 @@ void SpaceShip::setMaxSpeed(const float speed)
 	m_maxSpeed = speed;
 }
 
+glm::vec2 SpaceShip::getOrientation()
+{
+	return m_orientation;
+}
+
 void SpaceShip::setOrientation(glm::vec2 orientation)
 {
 	m_orientation = orientation;
 }
+
+float SpaceShip::getRotationAngle() const
+{
+	return m_rotationAngle;
+}
+
 
 void SpaceShip::setRotationAngle(float angle)
 {
 	m_rotationAngle = angle;
 }
 
-float SpaceShip::getRotationAngle()
+float SpaceShip::getTurnRate()
 {
-	return m_rotationAngle;
+	return m_turnRate;
+}
+
+void SpaceShip::setTurnRate(const float rate)
+{
+	m_turnRate = rate;
+}
+
+float SpaceShip::getAccelerationRate()
+{
+	return m_accelerationRate;
+}
+
+
+void SpaceShip::setAccelerationRate(float rate)
+{
+	m_accelerationRate - rate;
 }
 
 

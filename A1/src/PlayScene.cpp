@@ -54,13 +54,13 @@ void PlayScene::handleEvents()
 	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_A))
 	{
 		//target moves to the left
-		m_pTarget->getTransform()->position.x = m_pTarget->getTransform()->position.x - 3;;
+		m_pTarget->getTransform()->position.x = m_pTarget->getTransform()->position.x - 3;
 		m_pSpaceShip->setDestination(m_pTarget->getTransform()->position);
 	}
 	else if (EventManager::Instance().isKeyDown(SDL_SCANCODE_D))
 	{
 		//target moves to the right
-		m_pTarget->getTransform()->position.x = m_pTarget->getTransform()->position.x + 3;;
+		m_pTarget->getTransform()->position.x = m_pTarget->getTransform()->position.x + 3;
 		m_pSpaceShip->setDestination(m_pTarget->getTransform()->position);
 	}
 	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_W))
@@ -173,10 +173,11 @@ void PlayScene::GUI_Function() const
 	ImGui::Begin("Your Window Title Goes Here", NULL, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_MenuBar);
 
 	static float shipSpeed = 2.0f;
-	if (ImGui::SliderFloat("Ship Speed", &shipSpeed, 0.0f, 100.0f))
+	if (ImGui::SliderFloat("Ship Speed", &shipSpeed, 0.0f, 5.0f))
 	{
 		m_pSpaceShip->setMaxSpeed(shipSpeed);
 	}
+
 
 	static float angleInRadians = m_pSpaceShip->getRotationAngle();
 	if (ImGui::SliderAngle("Orientation Angle", &angleInRadians))
