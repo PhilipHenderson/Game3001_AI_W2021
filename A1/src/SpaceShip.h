@@ -19,7 +19,6 @@ public:
 	void clean() override;
 
 	//setters and getters
-	//void DrawCircle();
 	void setDestination(glm::vec2 destination);
 	void setDestination2(glm::vec2 destination);
 	float getMaxSpeed();
