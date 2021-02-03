@@ -1,18 +1,18 @@
 #pragma once
-#ifndef __SPACESHIP__
-#define __SPACESHIP__
+#ifndef __SPACESHIP3__
+#define __SPACESHIP3__
 
 #include "DisplayObject.h"
 #include "TextureManager.h"
 
-class SpaceShip final : public DisplayObject
+class SpaceShip3 final : public DisplayObject
 {
 public:
 	//Defualt Constructor
-	SpaceShip();
+	SpaceShip3();
 
 	//Destructor
-	~SpaceShip();
+	~SpaceShip3();
 
 	void draw() override;
 	void update() override;
@@ -21,7 +21,6 @@ public:
 	//setters and getters
 	//void DrawCircle();
 	void setDestination(glm::vec2 destination);
-	void setDestination2(glm::vec2 destination);
 	float getMaxSpeed();
 	void setMaxSpeed(float speed);
 	glm::vec2 getOrientation();
@@ -38,6 +37,7 @@ private:
 	glm::vec2 m_targetDirection; //Normalized Values or Orientation or looking direction
 	glm::vec2 m_destination;//where im going
 	glm::vec2 m_orientation;
+	glm::vec2 m_whiskerAngle;
 	float m_rotationAngle;
 	float m_maxSpeed;
 	float m_turnRate;
@@ -48,4 +48,4 @@ private:
 
 
 
-#endif /* defined (__SPACE_SHIP__) */
+#endif /* defined (__SPACE_SHIP__) */#pragma once

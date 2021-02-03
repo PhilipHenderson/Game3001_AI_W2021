@@ -1,7 +1,7 @@
 #include "CollisionManager.h"
 #include "Util.h"
 #include <algorithm>
-
+using namespace std;
 
 
 int CollisionManager::squaredDistance(const glm::vec2 p1, const glm::vec2 p2)
@@ -28,10 +28,12 @@ bool CollisionManager::squaredRadiusCheck(GameObject* object1, GameObject* objec
 
 			switch (object2->getType()) {
 			case TARGET:
-				std::cout << "Collision with Target!" << std::endl;
+				cout << "Collision with Target!" << endl;
 				SoundManager::Instance().playSound("yay", 0);
-
-				
+				break;
+			case OBSTICLE:
+				cout << "Collision With Obsticle!" << endl;
+				SoundManager::Instance().playSound("yay", 0);
 				break;
 			default:
 				

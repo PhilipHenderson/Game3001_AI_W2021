@@ -1,18 +1,18 @@
 #pragma once
-#ifndef __SPACESHIP__
-#define __SPACESHIP__
+#ifndef __SPACESHIP2__
+#define __SPACESHIP2__
 
 #include "DisplayObject.h"
 #include "TextureManager.h"
 
-class SpaceShip final : public DisplayObject
+class SpaceShip2 final : public DisplayObject
 {
 public:
 	//Defualt Constructor
-	SpaceShip();
+	SpaceShip2();
 
 	//Destructor
-	~SpaceShip();
+	~SpaceShip2();
 
 	void draw() override;
 	void update() override;

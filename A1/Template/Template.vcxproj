@@ -165,6 +165,9 @@
     <ClCompile Include="..\src\CollisionManager.cpp" />
     <ClCompile Include="..\src\Obsticle.cpp" />
     <ClCompile Include="..\src\SpaceShip.cpp" />
+    <ClCompile Include="..\src\SpaceShip2.cpp" />
+    <ClCompile Include="..\src\SpaceShip3.cpp" />
+    <ClCompile Include="..\src\SpaceShip4cpp.cpp" />
     <ClCompile Include="..\src\Sprite.cpp" />
     <ClCompile Include="..\src\UIControl.cpp" />
     <ClCompile Include="..\src\DisplayObject.cpp" />
@@ -207,6 +210,9 @@
     <ClInclude Include="..\src\Obsticle.h" />
     <ClInclude Include="..\src\SoundType.h" />
     <ClInclude Include="..\src\SpaceShip.h" />
+    <ClInclude Include="..\src\SpaceShip2.h" />
+    <ClInclude Include="..\src\SpaceShip3.h" />
+    <ClInclude Include="..\src\SpaceShip4.h" />
     <ClInclude Include="..\src\Sprite.h" />
     <ClInclude Include="..\src\UIControl.h" />
     <ClInclude Include="..\src\DisplayObject.h" />

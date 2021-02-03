@@ -6,6 +6,9 @@
 #include "Plane.h"
 #include "Player.h"
 #include "SpaceShip.h"
+#include "SpaceShip2.h"
+#include "SpaceShip3.h"
+#include "SpaceShip4.h"
 #include "Button.h"
 #include "Label.h"
 #include "Target.h"
@@ -32,6 +35,9 @@ private:
 
 	Target* m_pTarget;
 	SpaceShip* m_pSpaceShip;
+	SpaceShip2* m_pSpaceShip2;
+	SpaceShip3* m_pSpaceShip3;
+	SpaceShip4* m_pSpaceShip4;
 
 	// UI Items
 	Button* m_pBackButton;

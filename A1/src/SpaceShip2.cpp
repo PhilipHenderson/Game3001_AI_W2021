@@ -1,4 +1,4 @@
-#include "SpaceShip.h"
+#include "SpaceShip2.h"
 #include "Target.h"
 #include "glm/gtx/string_cast.hpp"
 #include "PlayScene.h"
@@ -8,13 +8,13 @@
 #include "Math.h"
 using namespace std;
 
-SpaceShip::SpaceShip()
+SpaceShip2::SpaceShip2()
 {
-	TextureManager::Instance()->load("../Assets/textures/ship.png", "spaceship");
-
-	auto size = TextureManager::Instance()->getTextureSize("spaceship");
-	setWidth(size.x);
-	setHeight(size.y);
+	//TextureManager::Instance()->load("../Assets/textures/ship.png", "spaceship");
+	//
+	//auto size = TextureManager::Instance()->getTextureSize("spaceship");
+	//setWidth(size.x);
+	//setHeight(size.y);
 
 	getTransform()->position = glm::vec2(100.0f, 100.0f);
 	getRigidBody()->velocity = glm::vec2(0.0f, 0.0f);
@@ -22,15 +22,15 @@ SpaceShip::SpaceShip()
 	getRigidBody()->isColliding = false;
 	setType(SPACESHIP);
 	setMaxSpeed(getMaxSpeed());
-	setOrientation(glm::vec2(0.0f, -1.0f));
+	setOrientation(glm::vec2(0.0f, 0.0f));
 	setRotationAngle(0.0f);
-	setAccelerationRate(10.0f);
+	setAccelerationRate(2.0f);
 	setTurnRate(10.0f);
 }
 
-SpaceShip::~SpaceShip() = default;
+SpaceShip2::~SpaceShip2() = default;
 
-void SpaceShip::draw()
+void SpaceShip2::draw()
 {
 	const auto x = getTransform()->position.x;
 	const auto y = getTransform()->position.y;
@@ -39,49 +39,49 @@ void SpaceShip::draw()
 	TextureManager::Instance()->draw("spaceship", getTransform()->position.x, getTransform()->position.y, m_rotationAngle, 255, true);
 }
 
-void SpaceShip::update()
+void SpaceShip2::update()
 {
 	m_Move();
 
 	//Util::distance(getTransform()->position, m_pTarget->getTransform()->position);
 }
-void SpaceShip::clean()
+void SpaceShip2::clean()
 {
 
 }
 
-void SpaceShip::setDestination(const glm::vec2 destination)
+void SpaceShip2::setDestination(const glm::vec2 destination)
 {
 	m_destination = destination;
 }
 
-void SpaceShip::setDestination2(glm::vec2 destination)
+void SpaceShip2::setDestination2(glm::vec2 destination)
 {
 }
 
-float SpaceShip::getMaxSpeed()
+float SpaceShip2::getMaxSpeed()
 {
 	return m_maxSpeed;
 }
-void SpaceShip::setMaxSpeed(const float speed)
+void SpaceShip2::setMaxSpeed(const float speed)
 {
 	m_maxSpeed = speed;
 }
 
-glm::vec2 SpaceShip::getOrientation()
+glm::vec2 SpaceShip2::getOrientation()
 {
 	return m_orientation;
 }
-void SpaceShip::setOrientation(glm::vec2 orientation)
+void SpaceShip2::setOrientation(glm::vec2 orientation)
 {
 	m_orientation = orientation;
 }
 
-float SpaceShip::getRotationAngle() const
+float SpaceShip2::getRotationAngle() const
 {
 	return m_rotationAngle;
 }
-void SpaceShip::setRotationAngle(const float angle)
+void SpaceShip2::setRotationAngle(const float angle)
 {
 	m_rotationAngle = angle;
 
@@ -95,27 +95,27 @@ void SpaceShip::setRotationAngle(const float angle)
 	setOrientation(glm::vec2(x, y));
 }
 
-float SpaceShip::getTurnRate()
+float SpaceShip2::getTurnRate()
 {
 	return m_turnRate;
 }
-void SpaceShip::setTurnRate(const float rate)
+void SpaceShip2::setTurnRate(const float rate)
 {
 	m_turnRate = rate;
 }
 
-float SpaceShip::getAccelerationRate()
+float SpaceShip2::getAccelerationRate()
 {
 	return m_accelerationRate;
 }
-void SpaceShip::setAccelerationRate(const float rate)
+void SpaceShip2::setAccelerationRate(const float rate)
 {
 	m_accelerationRate = rate;
 }
 
 
 
-void SpaceShip::m_Move()
+void SpaceShip2::m_Move()
 {
 
 	auto deltaTime = TheGame::Instance()->getDeltaTime();
@@ -126,8 +126,8 @@ void SpaceShip::m_Move()
 	//Normalized Direction
 	m_targetDirection = Util::normalize(m_targetDirection);
 
-	//seeking
-	auto target_rotation = Util::signedAngle(getOrientation(), m_targetDirection);
+	//Fleeing
+	auto target_rotation = Util::signedAngle(getOrientation(), -m_targetDirection);
 
 	auto turn_sensitivity = 5.0f;
 

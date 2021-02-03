@@ -13,11 +13,15 @@ public:
 	virtual void draw() override;
 	virtual void update() override;
 	virtual void clean() override;
+	float getRadius() const;
+	void setRadius(float radius);
+	void DrawCircle(glm::vec2 centre, int radius, glm::vec4 colour);;
 
 private:
 	void m_move();
 	void m_checkBounds();
 	void m_reset();
+	float m_pRadius;
 };
 
 
